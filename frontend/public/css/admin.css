@@ -1,0 +1,21 @@
+#login {
+    width: 50%;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 60px auto;
+}
+
+#loginButton {
+    margin-top: 10px;
+}
+
+#stats {
+    display: none;
+}
+
+#loginError {
+    display: none;
+    color: red;
+}
