@@ -1,6 +1,5 @@
 const mysql = require('mysql');
 const express = require('express');
-const { request } = require('http');
 var cors = require('cors');
 var app = express();
 
@@ -16,7 +15,7 @@ const connection = mysql.createConnection({
 
 const port = 4000;
 
-app.post('/4537/API/V1/login', function(req, res) {
+app.post('/4537/API/V1/login/', function(req, res) {
 	connection.connect(function(err) {
         if (err) {
             console.error('Error connecting: ' + err.stack);
@@ -26,13 +25,13 @@ app.post('/4537/API/V1/login', function(req, res) {
         console.log('Connected as id ' + connection.threadId);
     });
 
-	connection.query('UPDATE requests.login SET req_amount = req_amount + 1;', function (error, results, fields) {
+	connection.query('UPDATE requests SET req_amount = req_amount + 1 WHERE req_name = "login";', function (error, results, fields) {
 		if (error)
 			throw error;
 	});
 
-	let username = request.body.username;
-	let password = request.body.password;
+	let username = req.body.username;
+	let password = req.body.password;
 
 	if (username && password) {
 		connection.query('SELECT * FROM ACCOUNTS WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
@@ -41,6 +40,9 @@ app.post('/4537/API/V1/login', function(req, res) {
 			if (results.length == 1) {
 				res.status(200);
 				res.send('login successful');
+			} else {
+				res.status(401);
+				res.send('login failed');
 			}
 
 		});

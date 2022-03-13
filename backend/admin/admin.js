@@ -15,7 +15,7 @@ const connection = mysql.createConnection({
 
 const port = 4000;
 
-app.get('/4537/API/V1/admin', function(req, res) {
+app.get('/4537/API/V1/admin/', function(req, res) {
     let auth = req.body.auth;
 
     if (auth) {
@@ -28,7 +28,7 @@ app.get('/4537/API/V1/admin', function(req, res) {
             console.log('Connected as id ' + connection.threadId);
         });
 
-        connection.query('UPDATE requests.admin SET req_amount = req_amount + 1;', function (error, results, fields) {
+        connection.query('UPDATE requests SET req_amount = req_amount + 1 WHERE req_name = "admin";', function (error, results, fields) {
             if (error)
                 throw error;
         });
