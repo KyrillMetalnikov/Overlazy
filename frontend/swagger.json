@@ -1,0 +1,100 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": ".",
+    "version": "V1",
+    "title": "Overlazy"
+  },
+  "host": "www.tokeybee.com",
+  "basePath": "/4537/API/V1",
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Everything to do with authentication"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Send a login request",
+        "description": "",
+        "operationId": "login",
+        "consumes": [
+          "application/json",
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "The username of the account trying to login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Password of the account trying to login",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "login successful"
+          },
+          "400": {
+            "description": "Username or Password are empty"
+          },
+          "401": {
+            "description": "login failed"
+          }
+        }
+      }
+    },
+    "/admin": {
+      "get": {
+        "tags": [
+          "Stats"
+        ],
+        "summary": "Get api call stats",
+        "description": "Sends the statistics of the usage of the api",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "query",
+            "description": "A description of their login state",
+            "required": true,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pet"
+              }
+            }
+          },
+          "418": {
+            "description": "Unknown error happened"
+          }
+        }
+      }
+    }
+  }
+}
