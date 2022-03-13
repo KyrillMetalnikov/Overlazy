@@ -2,8 +2,10 @@ const mysql = require('mysql');
 const express = require('express');
 var cors = require('cors');
 var app = express();
-
+app.use(express.json());
 app.use(cors());
+
+const port = 4000;
 
 const connection = mysql.createConnection({
     host     : 'localhost',
@@ -13,21 +15,9 @@ const connection = mysql.createConnection({
     port: 3306
 });
 
-const port = 4000;
 
 app.get('/4537/API/V1/admin/', function(req, res) {
-    let auth = req.body.auth;
-
-    if (auth) {
-        connection.connect(function(err) {
-            if (err) {
-                console.error('Error connecting: ' + err.stack);
-                return;
-            }
-        
-            console.log('Connected as id ' + connection.threadId);
-        });
-
+    if (req.query.auth) {
         connection.query('UPDATE requests SET req_amount = req_amount + 1 WHERE req_name = "admin";', function (error, results, fields) {
             if (error)
                 throw error;
@@ -39,7 +29,12 @@ app.get('/4537/API/V1/admin/', function(req, res) {
         
             res.send(results);
         });
-    
-        connection.end();
+    } else {
+        res.status(418);
+        res.send("Why are you reading my response Luke?");
     }
+})
+
+app.listen(port, () => {
+	console.log(`Server running at port: ${port}`);
 })
