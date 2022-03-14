@@ -4,7 +4,7 @@ let loggedIn = false;
 function login() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-    endpoint = 'https://www.tokeybee.com/4537/API/V1/login';
+    endpoint = 'https://www.tokeybee.com/4537/API/V1/login/';
     document.getElementById("loginButton").disabled = true
     fetch(endpoint,
     {   headers: {
@@ -34,7 +34,7 @@ function login() {
 }
 
 function displayStats() {
-    fetch(`https://www.tokeybee.com/4537/API/V1/admin?auth=${loggedIn}`)
+    fetch(`https://www.tokeybee.com/4537/API/V1/admin/?auth=${loggedIn}`)
     .then(res => {
       return res.json();  
     })

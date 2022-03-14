@@ -86,7 +86,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Pet"
+                "$ref": "#/definitions/Admin"
               }
             }
           },
@@ -96,5 +96,29 @@
         }
       }
     }
+  },
+  "definitions": {
+    "Admin": {
+      "type": "object",
+      "required": [
+        "req_amount",
+        "req_name"
+      ],
+      "properties": {
+        "req_amount": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5
+        },
+        "req_name": {
+          "type": "string",
+          "example": "admin"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
   }
 }
