@@ -22,16 +22,16 @@ app.post('/4537/API/V1/images/', function(req, res) {
 			throw error;
 	});
 
-	let imageLink = req.body.imageLink;
+    let imageLink = req.body.imageLink;
     let imageYear = req.body.imageYear;
     let imageMonth = req.body.imageMonth;
     let imageDay = req.body.imageDay;
     let imageUserId = req.body.userId;
 
-    let imageDate = new Date(imageYear, imageMonth, imageDay).toJSON().slice(0, 10);
+    const imageDate = new Date(imageYear, imageMonth, imageDay).toJSON().slice(0, 10);
 
 	if (imageLink && imageDate && imageUserId) {
-		connection.query('INSERT INTO images VALUES ("?", "?", "?");', [imageUserId, imageDate, imageLink], function(error, results, fields) {
+		connection.query("INSERT INTO images VALUES ('?', '?', '?');", [imageUserId, imageDate, imageLink], function(error, results, fields) {
 			if (error) {
                 throw error;
             }
