@@ -57,7 +57,7 @@ app.get('/4537/API/V1/images/', function(req, res) {
 			throw error;
 	});
 
-	let userId = req.body.userId;
+	let userId = req.query.userId;
 
 	if (userId) {
 		connection.query('SELECT * FROM images WHERE images.id = ?;', [userId], function(error, results, fields) {
