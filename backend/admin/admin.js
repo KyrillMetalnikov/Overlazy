@@ -27,6 +27,7 @@ app.get('/4537/API/V1/admin/', function(req, res) {
             if (error)
                 throw error;
         
+            res.status(200);
             res.send(results);
         });
     } else {
