@@ -114,7 +114,7 @@ app.delete("/4537/API/V1/images/", function(req, res) {
 });
 
 
-app.patch('/4537/API/V1/images/', function(req, res) {
+app.put('/4537/API/V1/images/', function(req, res) {
 	connection.query('UPDATE requests SET req_amount = req_amount + 1 WHERE req_name = "images_patch";', function (error, results, fields) {
 		if (error)
 			throw error;
@@ -135,7 +135,9 @@ app.patch('/4537/API/V1/images/', function(req, res) {
         if (!(newImageLink == undefined)) {
             connection.query(query("images_link", newImageLink), function(error, results, fields) {
                 if (error) {
-                    throw error;
+                    res.status(401);
+                    res.send('Update failed');
+					return;
                 }
 
                 if (results) {
@@ -145,12 +147,13 @@ app.patch('/4537/API/V1/images/', function(req, res) {
                     res.status(401);
                     res.send('Update failed');
                 }
-				return;
             });
         } else if (!(newImageDate == undefined)) {
 			connection.query(query("images_date", newImageDate), function(error, results, fields) {
                 if (error) {
-                    throw error;
+                    res.status(401);
+                    res.send('Update failed');
+					return;
                 }
 
                 if (results) {
@@ -160,7 +163,6 @@ app.patch('/4537/API/V1/images/', function(req, res) {
                     res.status(401);
                     res.send('Update failed');
                 }
-				return;
             });
 		}
 	} else {
