@@ -1,21 +1,17 @@
 #login {
-    width: 50%;
-    height: 100%;
     border: 1px solid black;
     border-radius: 5px;
     padding: 20px;
     margin: 60px auto;
+    width: 22rem;
 }
 
-#loginButton {
-    margin-top: 10px;
+input {
+    margin-bottom: 1rem!important;
 }
 
-#stats {
+button {width: 100%;}
+
+#actionInfo {
     display: none;
-}
-
-#loginError {
-    display: none;
-    color: red;
 }

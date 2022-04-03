@@ -39,6 +39,13 @@ function displayStats() {
       return res.json();  
     })
     .then(data => {
-        document.getElementById("data").innerText = JSON.stringify(data, null, 2);
+        for (let i = 0; i < data.length; i++) {
+            $("#tableData").append(
+                `<tr>
+                  <th>${data[i].req_name}</th>
+                  <td>${data[i].req_amount}</td>
+                </tr>`
+            )
+        }
     })
 }

@@ -1,0 +1,22 @@
+#login {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 60px auto;
+    width: 22rem;
+}
+
+#stats {
+    display: none;
+}
+
+input {
+    margin-bottom: 1rem!important;
+}
+
+button {width: 100%;}
+
+#loginError {
+    display: none;
+    color: red;
+}

@@ -1,0 +1,20 @@
+.tab-content {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    margin: auto;
+    max-width: 44rem;
+}
+
+button {width: 100%;}
+
+#actionInfo {
+    display: none;
+}
+table {
+    font-size: 0.75rem;
+}
+input {
+    margin-top: 1rem!important;
+    margin-bottom: 1rem!important;
+}

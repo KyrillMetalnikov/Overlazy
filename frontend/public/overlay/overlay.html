@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.mySlides {display:none; width: 100%}
+</style>
+</head>
+
+<body>
+<div id="imageDiv" style="width:50rem">
+</div>
+
+<script>
+// page heavily based on https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_slideshow_rr
+var myIndex = 0;
+
+function carousel() {
+  var x = document.getElementsByClassName("mySlides");
+  for (let i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  if (++myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";  
+  setTimeout(carousel, 3000);
+}
+function init() {
+    let params = (new URL(document.location)).searchParams;
+    let id = params.get("userId");
+    fetch(`https://www.tokeybee.com/4537/API/V1/images/?userId=${id}`)
+    .then(res => {
+      return res.json();  
+    })
+    .then(data => {
+        let now = Date.now();
+        activeData = data.filter(x => {
+            let d = new Date(x.images_date);
+            return d >= now;
+        })
+        for (let i = 0; i < data.length; i++) {
+            let img = document.createElement("img");
+            img.src = data[i].images_link;
+            img.className = "mySlides";
+            document.getElementById("imageDiv").append(img);
+        }
+        carousel();
+    })
+}
+
+init();
+</script>
+
+</body>
+</html>
