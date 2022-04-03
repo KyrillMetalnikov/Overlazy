@@ -2,6 +2,7 @@ const mysql = require('mysql');
 const express = require('express');
 var cors = require('cors');
 var app = express();
+const TOKEN_SECRET = require('../config/config.js').TOKEN_SECRET;
 
 app.use(cors());
 app.use(express.json());
@@ -24,10 +25,12 @@ app.post('/4537/API/V1/images/', function(req, res) {
 
     const imageLink = req.body.imageLink;
     const imageDate = req.body.imageDate;
-    const imageUserId = req.body.userId;
+    const token = req.body.token;
+	const decode = jwt.verify(token, TOKEN_SECRET);
+	const userId = decode.id;
 
-	if (imageLink && imageDate && imageUserId) {
-		connection.query("INSERT INTO images VALUES (?, ?, ?);", [imageUserId, imageDate, imageLink], function(error, results, fields) {
+	if (imageLink && imageDate && userId) {
+		connection.query("INSERT INTO images VALUES (?, ?, ?);", [userId, imageDate, imageLink], function(error, results, fields) {
 			if (error) {
                 res.status(401);
                 res.send("invalid format or image already exists")
@@ -56,7 +59,9 @@ app.get('/4537/API/V1/images/', function(req, res) {
 		}
 	});
 
-	let userId = req.query.userId;
+	const token = req.body.token;
+	const decode = jwt.verify(token, TOKEN_SECRET);
+	const userId = decode.id;
 
 	if (userId) {
 		connection.query('SELECT * FROM images WHERE images.id = ?;', [userId], function(error, results, fields) {
@@ -86,12 +91,13 @@ app.delete("/4537/API/V1/images/", function(req, res) {
 			throw error;
 	});
 
-	const imageLink = req.body.imageLink;
-    const imageDate = req.body.imageDate;
-    const imageUserId = req.body.userId;
+	const imageId = req.body.imageId;
+	const token = req.body.token;
+	const decode = jwt.verify(token, TOKEN_SECRET);
+	const imageUserId = decode.id;
 
 	if (imageLink && imageDate && imageUserId) {
-		connection.query("DELETE FROM images WHERE images.id=? AND images_date=? AND images_link=?;", [imageUserId, imageDate, imageLink], function(error, results, fields) {
+		connection.query("DELETE FROM images WHERE images.id=? AND images.images_id=?;", [imageUserId, imageId], function(error, results, fields) {
 			if (error) {
                 res.status(401);
                 res.send("invalid format or image doesn't exist");
@@ -120,14 +126,15 @@ app.put('/4537/API/V1/images/', function(req, res) {
 			throw error;
 	});
 
-	let imageLink = req.body.imageLink;
-    let imageDate = req.body.imageDate;
-    let imageUserId = req.body.userId;
+	const imageId = req.query.imageId;
+    const token = req.query.token;
+	const decode = jwt.verify(token, TOKEN_SECRET);
+	const imageUserId = decode.id;
 	let newImageLink = req.body.newImageLink;
 	let newImageDate = req.body.newImageDate;
 
 	const query = (column, newValue) => {
-		return "UPDATE images SET " + column + "='" + newValue + "' WHERE images_link='" + imageLink + "' AND images_date='" + imageDate + "' AND id=" + imageUserId + ";";
+		return "UPDATE images SET " + column + "='" + newValue + "' WHERE images_id=" + imageId + " AND id =" + imageUserId + ";";
 	}
 
 	console.error(query("images_date", newImageDate));
