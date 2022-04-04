@@ -3,7 +3,7 @@ function post() {
 }
 
 function del() {
-    sendRequest("del");
+    sendRequest("delete");
 }
 
 function put() {
@@ -55,7 +55,6 @@ function sendRequest(type) {
                 // res.json().then(res => {throw new Error(res)});  // res message needs to be sent as json to be readable
                 throw new Error("not again..");
             }
-            get();
             triggerActionSuccessUx();
         })
         .catch(err => {
