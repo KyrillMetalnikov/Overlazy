@@ -4,7 +4,7 @@ const cors = require('cors');
 const app = express();
 const bcrypt = require('bcryptjs');
 
-app.use(cors());
+app.use(cors({origin:'https://shrekandamirfriendsforever.xyz'}));
 app.use(express.json());
 const port = 4000;
 

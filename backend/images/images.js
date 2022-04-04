@@ -5,7 +5,7 @@ var app = express();
 const jwt = require('jsonwebtoken');
 const TOKEN_SECRET = require('../config/config.js').TOKEN_SECRET;
 
-app.use(cors());
+app.use(cors({origin: 'https://shrekandamirfriendsforever.xyz'}));
 app.use(express.json());
 const port = 4000;
 
