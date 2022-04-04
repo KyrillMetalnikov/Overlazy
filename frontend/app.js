@@ -35,6 +35,10 @@ app.get('/COMP4537/termproject/API/V1/overlay', function(req, res) {
   res.sendFile(path.join(__dirname, 'public', 'overlay/overlay.html'))
 })
 
+app.get('/COMP4537/termproject/API/V1/home', function(req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'home/home.html'))
+})
+
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
