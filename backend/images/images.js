@@ -39,7 +39,8 @@ app.post('/4537/API/V1/images/', function(req, res) {
 
 		connection.query("INSERT INTO images VALUES (?, ?, ?, ?);", [userId, imageDate, imageLink, null], function(error, results, fields) {
 			if (error) {
-                throw error;
+                res.status(401);
+				res.send("invalid format or image already exists");
 				return;
             }
 
@@ -124,7 +125,7 @@ app.delete("/4537/API/V1/images/", function(req, res) {
 
 
 app.put('/4537/API/V1/images/', function(req, res) {
-	connection.query('UPDATE requests SET req_amount = req_amount + 1 WHERE req_name = "images_patch";', function (error, results, fields) {
+	connection.query('UPDATE requests SET req_amount = req_amount + 1 WHERE req_name = "images_put";', function (error, results, fields) {
 		if (error)
 			throw error;
 	});

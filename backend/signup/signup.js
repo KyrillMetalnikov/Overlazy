@@ -34,10 +34,9 @@ app.post('/4537/API/V1/signup/', function(req, res) {
     
                     connection.query('INSERT INTO accounts(username, password) VALUES (?, ?)', [username, hash], function(error, results, fields) {
                         if (error) {
-                            throw error;
-                            // res.status(401);
-                            // res.send('signup failed');
-                            // return;
+                            res.status(401);
+                            res.send('signup failed');
+                            return;
                         }
                         res.status(200);
                         res.send('signup successful');
