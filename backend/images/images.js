@@ -99,7 +99,7 @@ app.delete("/4537/API/V1/images/", function(req, res) {
 	const imageId = req.body.imageId;
 	const imageUserId = req.body.userId;
 
-	if (imageLink && imageDate && imageUserId) {
+	if (imageId && imageUserId) {
 		connection.query("DELETE FROM images WHERE images.id=? AND images.images_id=?;", [imageUserId, imageId], function(error, results, fields) {
 			if (error) {
                 res.status(401);
