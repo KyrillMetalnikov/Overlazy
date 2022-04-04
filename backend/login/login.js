@@ -3,8 +3,9 @@ const express = require('express');
 var cors = require('cors');
 var app = express();
 const bcrypt = require("bcryptjs");
-
-app.use(cors());
+const jwt = require('jsonwebtoken');
+const TOKEN_SECRET = require('../config/config.js').TOKEN_SECRET;
+app.use(cors({origin:'https://shrekandamirfriendsforever.xyz'}));
 app.use(express.json());
 const port = 4000;
 
@@ -25,6 +26,7 @@ app.post('/4537/API/V1/login/', function(req, res) {
 
 	let username = req.body.username;
 	let password = req.body.password;
+	console.error(TOKEN_SECRET);
 
 	if (username && password) {
 		connection.query('SELECT * FROM accounts WHERE username = ?', [username], function(error, results, fields) {
@@ -44,6 +46,8 @@ app.post('/4537/API/V1/login/', function(req, res) {
 				if (result == true) {
 					if (results.length == 1) {
 						res.status(200);
+						const token = jwt.sign( {id: results[0].id}, TOKEN_SECRET, { expiresIn: 120 });
+						res.cookie("jwt", token, {secure: true, httpOnly: true });
 						res.send("Login successful")
 					} else {
 						res.status(401);
