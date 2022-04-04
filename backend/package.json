@@ -4,7 +4,7 @@
   "description": "Timed dynamic overlay system created for streaming",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "unit-test.js"
   },
   "repository": {
     "type": "git",
@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/KyrillMetalnikov/Overlazy#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "mysql": "^2.18.1",
-    "node": "^17.5.0"
+    "node": "^17.5.0",
+    "node-fetch": "^3.2.3"
   }
 }
